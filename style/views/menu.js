@@ -5,5 +5,8 @@ export default StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         justifyContent: 'center'
+    },
+    button: { // Overwriting/adding default ButtonPrimary style
+        flex: 1
     }
 })

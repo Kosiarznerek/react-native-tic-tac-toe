@@ -2,6 +2,7 @@ import React from "react";
 import {Text, View} from "react-native";
 import style from '../style/views/game';
 import Box from '../components/Box';
+import ButtonPrimary from "../components/ButtonPrimary";
 
 export default class Game extends React.Component {
 
@@ -112,6 +113,18 @@ export default class Game extends React.Component {
         return 3;
     }
 
+    /**
+     * Restarts game
+     */
+    restartGame = () => {
+        this.setState({
+            mode: this.props.mode, //size of game board
+            gameBoard: new Array(this.props.mode).fill(0).map(v => new Array(this.props.mode).fill(0)), //new blank board
+            currentSymbol: Math.floor(Math.random() * 2) + 1, //starting with random symbol
+            winner: null //no winner info at the begging of the game
+        })
+    };
+
     render() {
         return (
             <View style={style.view}>
@@ -119,7 +132,7 @@ export default class Game extends React.Component {
                     typeof this.props.mode !== 'number' && this.state.winner === null
                         ? (<Text style={style.text}>Select size</Text>) //no winner and no game mode detected
                         : this.state.winner !== null && this.props.mode === this.state.mode
-                        ? (<Text style={style.text}>{this.state.winner}</Text>) //winner info
+                        ? (<ButtonPrimary text={this.state.winner} onPress={this.restartGame}/>) //winner info
                         : this.props.mode === this.state.mode
                             ? this.state.gameBoard.map((value, row) => { //size of game board was not changed so rendering current
                                 return (
@@ -133,12 +146,7 @@ export default class Game extends React.Component {
                                     </View>
                                 )
                             })
-                            : this.setState({ //size of game board was changed so need to restart game
-                                mode: this.props.mode, //size of game board
-                                gameBoard: new Array(this.props.mode).fill(0).map(v => new Array(this.props.mode).fill(0)), //new blank board
-                                currentSymbol: Math.floor(Math.random() * 2) + 1, //starting with random symbol
-                                winner: null //no winner info at the begging of the game
-                            })
+                            : this.restartGame() //size of game board was changed so need to restart game
                 }
             </View>
         )
