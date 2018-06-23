@@ -25,6 +25,9 @@ export default class Game extends React.Component {
         //Already winner
         if (this.state.winner) return;
 
+        //Attemp to select already selected box
+        if (this.state.gameBoard[row][column] !== 0) return;
+
         //Updating gameBoard
         const {gameBoard} = this.state;
         gameBoard[row][column] = this.state.currentSymbol;
