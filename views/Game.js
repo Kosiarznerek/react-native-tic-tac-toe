@@ -115,38 +115,58 @@ export default class Game extends React.Component {
 
     /**
      * Restarts game
+     * @param {number} gameMode Size of game board
      */
-    restartGame = () => {
+    restartGame = gameMode => {
         this.setState({
-            mode: this.props.mode, //size of game board
-            gameBoard: new Array(this.props.mode).fill(0).map(v => new Array(this.props.mode).fill(0)), //new blank board
+            mode: gameMode, //size of game board
+            gameBoard: new Array(gameMode).fill(0).map(v => new Array(gameMode).fill(0)), //new blank board
             currentSymbol: Math.floor(Math.random() * 2) + 1, //starting with random symbol
             winner: null //no winner info at the begging of the game
         })
     };
 
+    /**
+     * On props change
+     * @param {object} props
+     */
+    componentWillReceiveProps(props) {
+        //No changes in mode
+        if (this.state.mode === props.mode) return;
+
+        //Changing game board size
+        this.restartGame(props.mode);
+    }
+
     render() {
+        //No size detected
+        if (!Number.isInteger(this.state.mode)) return (
+            <View style={style.view}>
+                <Text style={style.text}>Select size</Text>
+            </View>
+        );
+
+        //Winner
+        if (this.state.winner) return (
+            <View style={style.view}>
+                <ButtonPrimary text={this.state.winner} onPress={() => this.restartGame(this.state.mode)}/>
+            </View>
+        );
+
+        //Rendering game board
         return (
             <View style={style.view}>
                 {
-                    typeof this.props.mode !== 'number' && this.state.winner === null
-                        ? (<Text style={style.text}>Select size</Text>) //no winner and no game mode detected
-                        : this.state.winner !== null && this.props.mode === this.state.mode
-                        ? (<ButtonPrimary text={this.state.winner} onPress={this.restartGame}/>) //winner info
-                        : this.props.mode === this.state.mode
-                            ? this.state.gameBoard.map((value, row) => { //size of game board was not changed so rendering current
-                                return (
-                                    <View style={style.row} key={row}>
-                                        {
-                                            value.map((value, column) =>
-                                                <Box text={this.state.gameBoard[row][column]} key={column}
-                                                     onPress={() => this.boxOnPress(row, column)}/>
-                                            )
-                                        }
-                                    </View>
+                    this.state.gameBoard.map((value, row) => (
+                        <View style={style.row} key={row}>
+                            {
+                                value.map((value, column) =>
+                                    <Box text={this.state.gameBoard[row][column]} key={column}
+                                         onPress={() => this.boxOnPress(row, column)}/>
                                 )
-                            })
-                            : this.restartGame() //size of game board was changed so need to restart game
+                            }
+                        </View>
+                    ))
                 }
             </View>
         )

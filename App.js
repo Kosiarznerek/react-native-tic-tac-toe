@@ -33,7 +33,7 @@ export default class App extends React.Component {
     onMenuSelect = (val, text) => {
         this.setState({selectedOption: val})
     };
-
+    
     render() {
         return (
             <View style={style.view}>
