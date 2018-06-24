@@ -1,5 +1,7 @@
 # Tic-Tac-Toe
 My first React Native code. Tested via Expo on iOS 11.4.
 
-# Screenshot
-![alt text](https://raw.githubusercontent.com/Kosiarznerek/Tic-Tac-Toe/master/screenshot.JPG)
+# Screenshots
+![Screenshot_0](https://raw.githubusercontent.com/Kosiarznerek/Tic-Tac-Toe/master/screenshots/0.png)
+![Screenshot_1](https://raw.githubusercontent.com/Kosiarznerek/Tic-Tac-Toe/master/screenshots/1.png)
+![Screenshot_2](https://raw.githubusercontent.com/Kosiarznerek/Tic-Tac-Toe/master/screenshots/2.png)
