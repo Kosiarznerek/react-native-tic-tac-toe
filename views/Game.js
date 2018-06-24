@@ -141,21 +141,22 @@ export default class Game extends React.Component {
     render() {
         //No size detected
         if (!Number.isInteger(this.state.mode)) return (
-            <View style={style.view}>
+            <View style={style.boardView}>
                 <Text style={style.text}>Select size</Text>
             </View>
         );
 
         //Winner
         if (this.state.winner) return (
-            <View style={style.view}>
-                <ButtonPrimary text={this.state.winner} onPress={() => this.restartGame(this.state.mode)}/>
+            <View style={style.buttonView}>
+                <ButtonPrimary text={this.state.winner} onPress={() => this.restartGame(this.state.mode)}
+                               style={{flex: 1, flexDirection: 'column'}}/>
             </View>
         );
 
         //Rendering game board
         return (
-            <View style={style.view}>
+            <View style={style.boardView}>
                 {
                     this.state.gameBoard.map((value, row) => (
                         <View style={style.row} key={row}>

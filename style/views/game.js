@@ -1,11 +1,15 @@
 import {StyleSheet} from 'react-native'
 
 export default StyleSheet.create({
-    view: {
+    boardView: {
         flex: 6,
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+    },
+    buttonView: {
+        flex: 6,
+        flexDirection: 'row'
     },
     row: {
         flex: 1,
